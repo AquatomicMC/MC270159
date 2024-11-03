@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "bluesea.mc270159.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "plugin": "bluesea.mc270159.MC270159MixinPlugin",
+    "mixins": [
+        "LevelStorageAccessMixin",
+        "NbtIoMixin",
+        "NbtIoRecordMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
