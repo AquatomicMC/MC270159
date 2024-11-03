@@ -1,6 +1,11 @@
+permissions:
+  contents: write
+
 name: Build
 on:
   push:
+    tags:
+    - '*'
 
 jobs:
   build:
