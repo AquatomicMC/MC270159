@@ -27,4 +27,19 @@ public class NbtIoMixin {
 
         return outputStream;
     }
+
+    @Redirect(
+        method = "write(Lnet/minecraft/nbt/CompoundTag;Ljava/nio/file/Path;)V",
+        at = @At(value = "INVOKE", target = "Ljava/nio/file/Files;newOutputStream(Ljava/nio/file/Path;[Ljava/nio/file/OpenOption;)Ljava/io/OutputStream;")
+    )
+    private static OutputStream write(Path path, OpenOption[] options) {
+        OutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(path.toFile());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return outputStream;
+    }
 }

@@ -15,10 +15,12 @@ public class MC270159Config {
 
     public static boolean replaceOutputStream;
     public static boolean recordTime;
+    public static boolean fullAnalyzeTime;
 
     static {
         replaceOutputStream = true;
         recordTime = false;
+        fullAnalyzeTime = false;
 
         if (!Files.exists(configDir)) {
             try {
@@ -28,14 +30,14 @@ public class MC270159Config {
             }
         }
         Path configFile = configDir.resolve("mc270159.json");
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("replaceOutputStream", replaceOutputStream);
+        jsonObject.addProperty("recordTime", recordTime);
+        jsonObject.addProperty("fullAnalyzeTime", fullAnalyzeTime);
         if (!Files.exists(configFile)) {
             MC270159.LOGGER.info("Creating config file");
             try {
                 Files.createFile(configFile);
-
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("replaceOutputStream", replaceOutputStream);
-                jsonObject.addProperty("recordTime", recordTime);
 
                 String json = config.toJson(jsonObject);
                 Files.write(configFile, json.getBytes());
@@ -45,10 +47,16 @@ public class MC270159Config {
         } else {
             try {
                 byte[] bytes = Files.readAllBytes(configFile);
-                JsonObject jsonObject = config.fromJson(new String(bytes, StandardCharsets.UTF_8), JsonObject.class);
+                JsonObject readJsonObject = config.fromJson(new String(bytes, StandardCharsets.UTF_8), JsonObject.class);
+                for (String key : jsonObject.keySet()) {
+                    if (!readJsonObject.has(key)) {
+                        readJsonObject.add(key, jsonObject.get(key));
+                    }
+                }
 
                 replaceOutputStream = jsonObject.get("replaceOutputStream").getAsBoolean();
                 recordTime = jsonObject.get("recordTime").getAsBoolean();
+                fullAnalyzeTime = jsonObject.get("fullAnalyzeTime").getAsBoolean();
             } catch (IOException e) {
                 throw new IllegalStateException("Can't read config file", e);
             }

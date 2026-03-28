@@ -18,6 +18,9 @@ public class MC270159MixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+		if (mixinClassName.startsWith("bluesea.mc270159.mixin.analyze")) {
+			return MC270159Config.fullAnalyzeTime;
+		}
         return switch (mixinClassName) {
             case "bluesea.mc270159.mixin.NbtIoMixin" -> MC270159Config.replaceOutputStream;
             case "bluesea.mc270159.mixin.NbtIoRecordMixin",

@@ -5,7 +5,7 @@ plugins {
 
 val modVersion: String by project
 val minecraftVersion: String by project
-version = "${modVersion}+${minecraftVersion}"
+version = "$modVersion+$minecraftVersion"
 val mavenGroup: String by project
 group = mavenGroup
 

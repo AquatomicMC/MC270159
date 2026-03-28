@@ -7,7 +7,9 @@
     "mixins": [
         "LevelStorageAccessMixin",
         "NbtIoMixin",
-        "NbtIoRecordMixin"
+        "NbtIoRecordMixin",
+        "analyze.MinecraftServerMixin",
+        "analyze.SaveAllCommandMixin"
     ],
     "injectors": {
         "defaultRequire": 1
