@@ -1,6 +1,6 @@
 plugins {
     val fabricLoomVersion: String by System.getProperties()
-    id("fabric-loom") version fabricLoomVersion
+    id("net.fabricmc.fabric-loom") version fabricLoomVersion
 }
 
 val modVersion: String by project
@@ -15,13 +15,12 @@ repositories {
 
 dependencies {
     minecraft("com.mojang", "minecraft", minecraftVersion)
-    mappings(loom.officialMojangMappings())
     val fabricLoaderVersion: String by project
-    modImplementation("net.fabricmc", "fabric-loader", fabricLoaderVersion)
+    implementation("net.fabricmc", "fabric-loader", fabricLoaderVersion)
 }
 
 tasks {
-    val javaVersion = JavaVersion.VERSION_21
+    val javaVersion = JavaVersion.VERSION_25
     withType<JavaCompile> {
         options.encoding = "UTF-8"
         sourceCompatibility = javaVersion.toString()

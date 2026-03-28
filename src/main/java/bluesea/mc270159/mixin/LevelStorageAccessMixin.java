@@ -11,7 +11,7 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 @Mixin(LevelStorageSource.LevelStorageAccess.class)
 public class LevelStorageAccessMixin {
     @Inject(
-        method = "saveDataTag(Lnet/minecraft/core/RegistryAccess;Lnet/minecraft/world/level/storage/WorldData;Lnet/minecraft/nbt/CompoundTag;)V",
+        method = "saveLevelData(Lnet/minecraft/nbt/CompoundTag;)V",
         at = @At("HEAD")
     )
     public void saveDataTag(CallbackInfo ci) {
